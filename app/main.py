@@ -21,7 +21,7 @@ def read_root():
 # Endpoints and Methods
 # /blah - endpoint
 # GET/POST/DELETE/PATCH - methods
-# 
+
 # Simple GET method demo
 # Adds two integers as PATH parameters
 @app.get("/add/{number_1}/{number_2}")
@@ -34,6 +34,11 @@ def add_me(number_1: int, number_2: int):
 def multiply_stuff(num_1,num_2,num_3):
     product = int(num_1) * int(num_2) * int(num_3)
     return {'product': product}
+
+@app.get("/subtract/{number_1}/{number_2}")
+def add_me(number_1: int, number_2: int):
+    diff = number_1 - number_2
+    return {"difference": diff}
 
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
