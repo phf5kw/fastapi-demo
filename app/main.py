@@ -30,7 +30,10 @@ def add_me(number_1: int, number_2: int):
     return {"sum": sum}
 
 # Let's develop a new one:
-
+@app.get("/multiply/{num_1}/{num_2}/{num_3}")
+def multiply_stuff(num_1,num_2,num_3):
+    product = int(num_1) * int(num_2) * int(num_3)
+    return {'product': product}
 
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
