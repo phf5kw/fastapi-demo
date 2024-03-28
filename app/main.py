@@ -5,7 +5,18 @@ from typing import Optional
 from pydantic import BaseModel
 # import boto3
 
+import os
+import MySQLdb
+from fastapi.staticfiles import StaticFiles
+
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static", html=True), name="static")
+
+DBHOST = os.environ.get('DBHOST')
+DBUSER = os.environ.get('DBUSER')
+DBPASS = os.environ.get('DBPASS')
+DB = "phf5kw"  # replace with your UVA computing ID / database name
 
 # The URL for this API has a /docs endpoint that lets you see and test
 # your various endpoints/methods.
@@ -17,6 +28,17 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
+
+#SQL
+
+@app.get("/albums")
+def get_all_albums():
+    db = MySQLdb.connect(host=DBHOST, user=DBUSER, passwd=DBPASS, db=DB)
+    c = db.cursor(MySQLdb.cursors.DictCursor)
+    c.execute("SELECT * FROM albums ORDER BY name")
+    results = c.fetchall()
+    db.close()
+    return results
 
 # Endpoints and Methods
 # /blah - endpoint
